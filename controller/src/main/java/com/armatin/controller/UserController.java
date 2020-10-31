@@ -27,16 +27,15 @@ public class UserController {
     }
 
     @PostMapping(value = "/signing")
-    public ResponseEntity<?> createUser(@RequestBody UserDto dto){
-        User user = new User();
-        user.setUsername(dto.getUsername());
-        user.setPassword(dto.getPassword());
+    public ResponseEntity<?> createUser(@RequestBody UserDto userDto){
+        User user = UserMapper.INSTANCE.toEntity(userDto);
+
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);
         user.setCredentialsNonExpired(true);
         user.setActive(true);
-        user.setRoles(new HashSet<String>(Arrays.asList("ADMIN","MANAGER")));
-        user.setPermissions(new HashSet<String>(Arrays.asList("create","update", "delete")));
+        user.setRoles(new HashSet<String>(Arrays.asList("ADMIN")));
+        user.setPermissions(new HashSet<String>(Arrays.asList("create","update","delete")));
         userService.createUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }

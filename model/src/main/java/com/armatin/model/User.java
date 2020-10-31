@@ -9,8 +9,6 @@ import java.util.Set;
 @Table(name = "tbl_user")
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
 public class User {
 
     @Id

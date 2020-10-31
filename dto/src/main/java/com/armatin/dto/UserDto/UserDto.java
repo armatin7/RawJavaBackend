@@ -3,10 +3,9 @@ import java.io.Serializable;
 
 import lombok.*;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
 public class UserDto implements Serializable{
     /**
      *
