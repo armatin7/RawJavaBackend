@@ -27,6 +27,7 @@ public class ApplicationUserDaoServiceImpl implements ApplicationUserDao{
     }
 
     @Override
+    @Transactional
     public boolean isUserValid(String username) {
         return userRepository.isUserActive(username);//.existsByUsername(username);
     }

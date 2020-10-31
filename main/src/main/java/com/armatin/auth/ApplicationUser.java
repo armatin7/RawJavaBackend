@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 @RequiredArgsConstructor
 public class ApplicationUser implements UserDetails {
 
@@ -19,22 +18,7 @@ public class ApplicationUser implements UserDetails {
     private static final long serialVersionUID = 1L;
     private final User user;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-
-        this.user.getPermissions().forEach(p ->{
-            GrantedAuthority authority = new SimpleGrantedAuthority(p.getPermission());
-            grantedAuthorities.add(authority);
-        });
-
-        this.user.getRoles().forEach(r ->{
-            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + r.getRole());
-            grantedAuthorities.add(authority);
-        });
-
-        return grantedAuthorities;
-    }
+    List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
     @Override
     public String getPassword() {
@@ -64,5 +48,21 @@ public class ApplicationUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return user.isActive();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        
+        this.user.getPermissions().forEach(p ->{
+            GrantedAuthority authority = new SimpleGrantedAuthority(p.getPermission());
+            grantedAuthorities.add(authority);
+        });
+
+        this.user.getRoles().forEach(r ->{
+            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + r.getRole());
+            grantedAuthorities.add(authority);
+        });
+
+        return grantedAuthorities;
     }
 }
