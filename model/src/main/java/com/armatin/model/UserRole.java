@@ -3,11 +3,13 @@ package com.armatin.model;
 import javax.persistence.*;
 import lombok.*;
 
-@Data
 @Entity
 @Table(name = "tbl_user_roles")
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = {"id"}, callSuper = false)
+@Setter
+@Getter
 public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

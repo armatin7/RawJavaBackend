@@ -4,11 +4,13 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
 @Entity
 @Table(name = "tbl_user")
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = {"id"}, callSuper = false)
+@Setter
+@Getter
 public class User {
 
     @Id

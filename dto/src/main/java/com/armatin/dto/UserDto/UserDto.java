@@ -3,9 +3,11 @@ import java.io.Serializable;
 
 import lombok.*;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = {"username"}, callSuper = false)
+@Setter
+@Getter
 public class UserDto implements Serializable{
     /**
      *
