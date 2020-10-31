@@ -2,6 +2,8 @@ package com.armatin.controller;
 
 import com.armatin.dto.UserDto.*;
 import com.armatin.model.User;
+import com.armatin.model.UserPermission;
+import com.armatin.model.UserRole;
 import com.armatin.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,14 +30,15 @@ public class UserController {
 
     @PostMapping(value = "/signing")
     public ResponseEntity<?> createUser(@RequestBody UserDto userDto){
-        User user = UserMapper.INSTANCE.toEntity(userDto);
-
+        User user = new User();//UserMapper.INSTANCE.toEntity(userDto);
+        user.setUsername(userDto.getUsername());
+        user.setPassword(userDto.getPassword());
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);
         user.setCredentialsNonExpired(true);
         user.setActive(true);
-        user.setRoles(new HashSet<String>(Arrays.asList("ADMIN")));
-        user.setPermissions(new HashSet<String>(Arrays.asList("create","update","delete")));
+        user.setRoles(new HashSet<UserRole>(Arrays.asList(new UserRole())));
+        user.setPermissions(new HashSet<UserPermission>(Arrays.asList(new UserPermission())));
         userService.createUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }

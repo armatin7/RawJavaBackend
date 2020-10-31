@@ -10,16 +10,16 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> getUsersByUsername(String username);
+    Optional<User> getUsersByUsername(@Param("username")String username);
 
     boolean existsByUsername(String username);
 
-    @Query(value = "select " +
-    "case when exists" +
-    "(select * from spring.tbl_user user " +
-    "where  user.c_username = :username and user.b_is_active) " +
-    "then 'true' " +
-    "else 'false' " +
-    "end", nativeQuery = true)
+    @Query(value = "SELECT " +
+    "CASE WHEN EXISTS" +
+    "(SELECT * FROM spring.tbl_user user " +
+    "WHERE  user.c_username = :username and user.b_is_active) " +
+    "THEN 'true' " +
+    "ELSE 'false' " +
+    "END", nativeQuery = true)
     boolean isUserActive(@Param("username") String username);
 }

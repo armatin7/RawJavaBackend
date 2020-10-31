@@ -22,11 +22,11 @@ public class User {
     @Column(name = "c_password", nullable = false)
     private String password;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Set<String> permissions;
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<UserPermission> permissions;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Set<String> roles;
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<UserRole> roles;
 
     @Column(name = "b_isAccountNonExpired")
     private boolean isAccountNonExpired;

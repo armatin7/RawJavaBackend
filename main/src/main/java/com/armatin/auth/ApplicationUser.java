@@ -24,12 +24,12 @@ public class ApplicationUser implements UserDetails {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
         this.user.getPermissions().forEach(p ->{
-            GrantedAuthority authority = new SimpleGrantedAuthority(p);
+            GrantedAuthority authority = new SimpleGrantedAuthority(p.getPermission());
             grantedAuthorities.add(authority);
         });
 
         this.user.getRoles().forEach(r ->{
-            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + r);
+            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + r.getRole());
             grantedAuthorities.add(authority);
         });
 
