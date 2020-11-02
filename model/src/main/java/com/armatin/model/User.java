@@ -26,17 +26,17 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
-	  name = "user_permissions", 
+	  name = "users_permissions",
 	  joinColumns = @JoinColumn(name = "user_id"), 
 	  inverseJoinColumns = @JoinColumn(name = "permission_id"))
-    private Set<Permission> permissions;
+    private Set<Permission> linkedPermissions;
 
     @ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
-	  name = "user_roles", 
+	  name = "users_roles",
 	  joinColumns = @JoinColumn(name = "user_id"), 
 	  inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    private Set<Role> linkedRoles;
 
     @Column(name = "b_isAccountNonExpired")
     private boolean isAccountNonExpired;

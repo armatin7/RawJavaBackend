@@ -28,7 +28,9 @@ public class UserController {
 
     @PostMapping(value = "/signing")
     public ResponseEntity<?> createUser(@RequestBody UserDto userDto){
-        User user = UserMapper.INSTANCE.toEntity(userDto);
+        User user = new User();//UserMapper.INSTANCE.toEntity(userDto);
+        user.setUsername(userDto.getUsername());
+        user.setPassword(userDto.getPassword());
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);
         user.setCredentialsNonExpired(true);

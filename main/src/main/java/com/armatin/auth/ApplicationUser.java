@@ -53,12 +53,12 @@ public class ApplicationUser implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         
-        this.user.getPermissions().forEach(p ->{
+        this.user.getLinkedPermissions().forEach(p ->{
             GrantedAuthority authority = new SimpleGrantedAuthority(p.getPermission());
             grantedAuthorities.add(authority);
         });
 
-        this.user.getRoles().forEach(r ->{
+        this.user.getLinkedRoles().forEach(r ->{
             GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + r.getRole());
             grantedAuthorities.add(authority);
         });
