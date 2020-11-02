@@ -24,11 +24,19 @@ public class User {
     @Column(name = "c_password", nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
-    private Set<UserPermission> permissions;
+    @ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+	  name = "user_permissions", 
+	  joinColumns = @JoinColumn(name = "user_id"), 
+	  inverseJoinColumns = @JoinColumn(name = "permission_id"))
+    private Set<Permission> permissions;
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
-    private Set<UserRole> roles;
+    @ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+	  name = "user_roles", 
+	  joinColumns = @JoinColumn(name = "user_id"), 
+	  inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     @Column(name = "b_isAccountNonExpired")
     private boolean isAccountNonExpired;

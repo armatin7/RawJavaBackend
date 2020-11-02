@@ -1,28 +1,26 @@
 package com.armatin.model;
 
+import java.util.Set;
+
 import javax.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "tbl_user_roles")
+@Table(name = "tbl_user_permissions")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"id"}, callSuper = false)
 @Setter
 @Getter
-public class UserRole {
+public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", precision = 10)
     private Long id;
 
-    @Column(name = "c_role")
-    private String role;
+    @Column(name = "c_permission")
+    private String permission;
 
-    @ManyToOne()
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
-    private User user;
-    
-    @Column(name = "user_id")
-    private Long userId;
+    @ManyToMany(mappedBy = "linkedPermissions")
+    private Set<User> linkeUsers;
 }
