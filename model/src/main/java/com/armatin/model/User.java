@@ -1,6 +1,8 @@
 package com.armatin.model;
 
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -9,7 +11,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class User {
+@EntityListeners(AuditingEntityListener.class)
+public class User extends Auditable<String>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
