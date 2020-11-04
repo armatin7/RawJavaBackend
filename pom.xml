@@ -11,13 +11,20 @@
 
 	<groupId>com.armatin</groupId>
 	<artifactId>RawBack</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>${revision}</version>
 	<name>RawJavaBackend</name>
 	<description>Raw java backend project for Spring Boot</description>
 	<packaging>pom</packaging>
 
 	<properties>
 		<java.version>8</java.version>
+		<source>1.8</source>
+		<target>1.8</target>
+		<spring_version>2.3.4.RELEASE</spring_version>
+		<maven_version>3.6.1</maven_version>
+		<mapstruct_version>1.2.0.Final</mapstruct_version>
+		<lombok_version>1.16.18</lombok_version>
+		<revision>0.0.1-SNAPSHOT</revision>
 	</properties>
 
 	<modules>
@@ -54,14 +61,9 @@
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-			<version>1.2.0.Final</version>
-		</dependency>
-		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.16.18</version>
+			<version>${lombok_version}</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
@@ -74,25 +76,25 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.1</version>
+				<version>${maven_version}</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>${source}</source>
+					<target>${target}</target>
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.mapstruct</groupId>
 							<artifactId>mapstruct-processor</artifactId>
-							<version>1.2.0.Final</version>
+							<version>${mapstruct_version}</version>
 						</path>
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-							<version>1.16.18</version>
+							<version>${lombok_version}</version>
 						</path>
 						<path>
 							<groupId>org.springframework.boot</groupId>
 							<artifactId>spring-boot-configuration-processor</artifactId>
-							<version>2.0.4.RELEASE</version>
+							<version>${spring_version}</version>
 						</path>
 					</annotationProcessorPaths>
 				</configuration>

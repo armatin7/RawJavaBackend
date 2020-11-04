@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.armatin</groupId>
 		<artifactId>RawBack</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>${revision}</version>
 	</parent>
 	<artifactId>main</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -44,7 +44,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
-			<version>2.3.4.RELEASE</version>
+			<version>${spring_version}</version>
 			<optional>true</optional>
 		</dependency>
 

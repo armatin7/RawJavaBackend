@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.armatin</groupId>
 		<artifactId>RawBack</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>${revision}</version>
 	</parent>
 	<groupId>com.armatin.dto</groupId>
 	<artifactId>dto</artifactId>
@@ -14,6 +14,11 @@
 	<packaging>jar</packaging>
 	
 	<dependencies>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${mapstruct_version}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.armatin.model</groupId>
 			<artifactId>model</artifactId>
