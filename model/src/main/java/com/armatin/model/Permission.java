@@ -9,9 +9,7 @@ import lombok.*;
 @Table(name = "tbl_user_permissions")
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"id"}, callSuper = false)
-@Setter
-@Getter
+@Data
 public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

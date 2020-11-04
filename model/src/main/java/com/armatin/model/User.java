@@ -8,9 +8,7 @@ import java.util.Set;
 @Table(name = "tbl_user")
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"id"}, callSuper = false)
-@Setter
-@Getter
+@Data
 public class User {
 
     @Id

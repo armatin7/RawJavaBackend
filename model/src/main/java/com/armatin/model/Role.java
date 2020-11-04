@@ -9,9 +9,7 @@ import lombok.*;
 @Table(name = "tbl_user_roles")
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"id"}, callSuper = false)
-@Setter
-@Getter
+@Data
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
