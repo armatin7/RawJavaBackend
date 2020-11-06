@@ -52,24 +52,6 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
 
             String username = body.getSubject();
 
-            if(!applicationUserService.isUserValid(username)) {
-                filterChain.doFilter(request, response);
-                return;
-            }
-
-            // @SuppressWarnings("unchecked")
-            // var authorities = (List<Map<String, String>>) body.get("authorities");
-
-            // Set<GrantedAuthority> grantedAuthorities = authorities.stream()
-            //         .map(m -> new SimpleGrantedAuthority(m.get("authority")))
-            //         .collect(Collectors.toSet());
-
-            // Authentication authentication = new UsernamePasswordAuthenticationToken(
-            //         username,
-            //         null,
-            //         grantedAuthorities
-            // );
-
             UserDetails userDetails = applicationUserService.loadUserByUsername(username);
 
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(

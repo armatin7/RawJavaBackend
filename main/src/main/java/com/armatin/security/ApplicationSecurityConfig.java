@@ -19,6 +19,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -34,16 +37,21 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .csrf().disable()
+            .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
-                .addFilterAfter(new JwtTokenVerifier(applicationUserService, jwtConfig, secretKey), JwtUsernameAndPasswordAuthenticationFilter.class)
-                .authorizeRequests()
-                .antMatchers("/api/user/signing").permitAll()
-                .anyRequest()
-                .authenticated();
+                .exceptionHandling().accessDeniedHandler(applicationAccessDeniedHandler())
+                .and()
+                .exceptionHandling().authenticationEntryPoint(applicationAuthenticationEntryPoint())
+            .and()
+            .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
+            .addFilterAfter(new JwtTokenVerifier(applicationUserService, jwtConfig, secretKey), JwtUsernameAndPasswordAuthenticationFilter.class)
+            .authorizeRequests()
+            .antMatchers("/api/user/signing").permitAll()
+            .anyRequest()
+            .authenticated()
+            ;
     }
 
     @Override
@@ -57,5 +65,15 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setPasswordEncoder(passwordEncoder);
         provider.setUserDetailsService(applicationUserService);
         return provider;
+    }
+
+    @Bean
+    public AccessDeniedHandler applicationAccessDeniedHandler(){
+        return new ApplicationAuthHandler();
+    }
+
+    @Bean
+    public AuthenticationEntryPoint applicationAuthenticationEntryPoint(){
+        return new ApplicationAuthHandler();
     }
 }

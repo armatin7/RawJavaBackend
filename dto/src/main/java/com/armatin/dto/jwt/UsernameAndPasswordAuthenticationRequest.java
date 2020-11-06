@@ -1,4 +1,4 @@
-package com.armatin.jwt;
+package com.armatin.dto.jwt;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
