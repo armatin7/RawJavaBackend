@@ -7,10 +7,12 @@ import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name = "tbl_user_roles")
+@Table(name = "tbl_role")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Setter
+@Getter
+@EqualsAndHashCode(of = {"id"})
 @EntityListeners(AuditingEntityListener.class)
 public class Role extends Auditable<String>{
     @Id
@@ -18,7 +20,7 @@ public class Role extends Auditable<String>{
     @Column(name = "id", precision = 10)
     private Long id;
 
-    @Column(name = "c_role")
+    @Column(name = "c_role", nullable = false, unique = true)
     private String role;
 
     @ManyToMany(mappedBy = "linkedRoles")

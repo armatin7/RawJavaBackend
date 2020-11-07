@@ -7,6 +7,7 @@ import com.armatin.jwt.JwtConfig;
 import com.armatin.jwt.JwtTokenVerifier;
 import com.armatin.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -33,6 +34,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     private final ApplicationUserService applicationUserService;
     private final JwtConfig jwtConfig;
     private final SecretKey secretKey;
+    private final ObjectMapper objectMapper;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -69,11 +71,11 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AccessDeniedHandler applicationAccessDeniedHandler(){
-        return new ApplicationAuthHandler();
+        return new ApplicationAuthHandler(objectMapper);
     }
 
     @Bean
     public AuthenticationEntryPoint applicationAuthenticationEntryPoint(){
-        return new ApplicationAuthHandler();
+        return new ApplicationAuthHandler(objectMapper);
     }
 }

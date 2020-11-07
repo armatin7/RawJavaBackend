@@ -7,10 +7,12 @@ import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name = "tbl_user_permissions")
+@Table(name = "tbl_permission")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Setter
+@Getter
+@EqualsAndHashCode(of = {"id"})
 @EntityListeners(AuditingEntityListener.class)
 public class Permission extends Auditable<String>{
     @Id
@@ -18,7 +20,7 @@ public class Permission extends Auditable<String>{
     @Column(name = "id", precision = 10)
     private Long id;
 
-    @Column(name = "c_permission")
+    @Column(name = "c_permission", nullable = false, unique = true)
     private String permission;
 
     @ManyToMany(mappedBy = "linkedPermissions")

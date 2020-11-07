@@ -10,7 +10,9 @@ import java.util.Set;
 @Table(name = "tbl_user")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Setter
+@Getter
+@EqualsAndHashCode(of = {"id"})
 @EntityListeners(AuditingEntityListener.class)
 public class User extends Auditable<String>{
 

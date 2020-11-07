@@ -1,7 +1,9 @@
 package com.armatin.controller;
 
 import com.armatin.dto.UserDto.*;
+import com.armatin.model.Role;
 import com.armatin.model.User;
+import com.armatin.service.RoleService;
 import com.armatin.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ import java.util.HashSet;
 public class UserController {
 
     private final UserService userService;
+    private final RoleService roleService;
 
     @GetMapping(value = "")
     @PreAuthorize("hasRole('ADMIN')")
@@ -28,9 +31,14 @@ public class UserController {
 
     @PostMapping(value = "/signing")
     public ResponseEntity<?> createUser(@RequestBody UserDto userDto){
-        User user = new User();//UserMapper.INSTANCE.toEntity(userDto);
-        user.setUsername(userDto.getUsername());
-        user.setPassword(userDto.getPassword());
+        User user = UserMapper.INSTANCE.toEntity(userDto);
+        //--------------------------------------
+        Role role = new Role();
+        role.setRole("ADMIN");
+        roleService.createRole(role);
+        role = roleService.getRoleByName("ADMIN");
+        user.setLinkedRoles(new HashSet<Role>(Arrays.asList(role)));
+        //--------------------------------------
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);
         user.setCredentialsNonExpired(true);
